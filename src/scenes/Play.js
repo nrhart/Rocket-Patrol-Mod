@@ -188,7 +188,6 @@ class Play extends Phaser.Scene {
         this.sound.play('sfx_explosion')
       }
 
-
     shipExplodeP2(ship) {
         // temporarily hide ship
         ship.alpha = 0;
