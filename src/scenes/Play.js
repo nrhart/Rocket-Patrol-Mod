@@ -70,13 +70,29 @@ class Play extends Phaser.Scene {
 
         //GAME OVER flag
         this.gameOver = false;
+        this.halfTimer = false;
 
         // 60-second play clock
         scoreConfig.fixedWidth = 0;
+        this.speeduptext = this.add.text(game.config.width/2, game.config.height/6.5, 'SPEED UP', scoreConfig).setOrigin(0.5);
+        this.speeduptext.visible = false;
+
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← for Menu', scoreConfig).setOrigin(0.5);
             this.gameOver = true;
+        }, null, this);
+
+        this.clock = this.time.delayedCall(game.settings.gameTimer/2, () => {
+            this.speeduptext.visible = true;
+            this.halfTimer = true;
+            this.time.addEvent({
+                delay: 2000,
+                callback: ()=>{
+                    this.speeduptext.visible = false;
+                },
+                loop: false
+            })
         }, null, this);
     }
 
@@ -98,6 +114,12 @@ class Play extends Phaser.Scene {
             this.ship01.update();               // update spaceships (x3)
             this.ship02.update();
             this.ship03.update();
+        }
+
+        if(this.halfTimer){
+            this.ship01.halftime();
+            this.ship02.halftime();
+            this.ship03.halftime();
         }
 
         // check collisions
