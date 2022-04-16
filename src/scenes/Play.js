@@ -74,6 +74,13 @@ class Play extends Phaser.Scene {
 
         // 60-second play clock
         scoreConfig.fixedWidth = 0;
+
+        // Display timer
+        this.timeInSeconds = game.settings.gameTimer/1000;
+        this.timeText = this.add.text(game.config.width/2, game.config.height/6.5, this.timeInSeconds, scoreConfig).setOrigin(0.5);
+        this.timer = this.time.addEvent({ delay: 1000, callback: this.updateTimer, callbackScope: this, loop: true });
+        
+        // speed up text
         this.speeduptext = this.add.text(game.config.width/2, game.config.height/6.5, 'SPEED UP', scoreConfig).setOrigin(0.5);
         this.speeduptext.visible = false;
 
@@ -90,6 +97,7 @@ class Play extends Phaser.Scene {
             this.gameOver = true;
         }, null, this);
 
+        // remove timer after delay
         this.clock = this.time.delayedCall(game.settings.gameTimer/2, () => {
             this.speeduptext.visible = true;
             this.halfTimer = true;
@@ -99,8 +107,17 @@ class Play extends Phaser.Scene {
                     this.speeduptext.visible = false;
                 },
                 loop: false
-            })
+            });
         }, null, this);
+    }
+
+    updateTimer() {
+        //subtract a second
+        this.timeInSeconds--;
+        this.timeText.setText(this.timeInSeconds);
+        if(this.timeInSeconds == 0){
+            this.timer.destroy();
+        }
     }
 
     update() {
