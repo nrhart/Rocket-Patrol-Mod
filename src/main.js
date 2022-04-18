@@ -16,3 +16,10 @@ let keyUP, keyR, keyONE, keyTWO, keyLEFT, keyRIGHT;
 
 // P1 Keys
 let keyW, keyA, keyD;
+
+
+//Points Breakdown
+//Speed up effect after half time (5)
+//Display Game Timer (10)
+//Selectable Two Player Mode (30)
+//Theme, Sound, Art, UI Changes (60)
