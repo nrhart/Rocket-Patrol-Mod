@@ -8,10 +8,12 @@ class Menu extends Phaser.Scene {
       this.load.audio('sfx_select', './assets/blip_select12.wav');
       this.load.audio('sfx_explosion', './assets/explosion38.wav');
       this.load.audio('sfx_rocket', './assets/rocket_shot.wav');
+      this.load.image('starfield', './assets/pixelsky.png');
     }
     
 
   create() {
+      this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
       // menu text configuration
       let menuConfig = {
           fontFamily: 'Courier',
@@ -29,19 +31,21 @@ class Menu extends Phaser.Scene {
 
       // show menu text
       this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'ROCKET PATROL', menuConfig).setOrigin(0.5);
-      this.add.text(game.config.width/2, game.config.height/2, 'P1 uses ←→ arrows to move P2 uses A & D', menuConfig).setOrigin(0.5);
-      this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press (F) for P1 fire & (J) for P2 fire', menuConfig).setOrigin(0.5);
+      this.add.text(game.config.width/2, game.config.height/2, 'P1 uses A & D to move and (W) to fire', menuConfig).setOrigin(0.5);
+      this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'P2 uses ←→ arrows to move and (↑) to fire', menuConfig).setOrigin(0.5);
       menuConfig.backgroundColor = '#00FF00';
       menuConfig.color = '#000';
-      this.add.text(game.config.width/2, game.config.height/2 + borderUISize*2 + borderPadding*2, 'Press ← for Novice or → for Expert', menuConfig).setOrigin(0.5);
+      this.add.text(game.config.width/2, game.config.height/2 + borderUISize*2 + borderPadding*2, 'Press ← / A for Novice or → / D for Expert', menuConfig).setOrigin(0.5);
  
       // define keys
       keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
       keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+      keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+      keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
   }
 
   update() {
-      if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+      if (Phaser.Input.Keyboard.JustDown(keyLEFT) || Phaser.Input.Keyboard.JustDown(keyA) ) {
         // Novice mode
         game.settings = {
           spaceshipSpeed: 3,
@@ -51,7 +55,7 @@ class Menu extends Phaser.Scene {
         this.sound.play('sfx_select');
         this.scene.start('playScene');    
       }
-      if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
+      if (Phaser.Input.Keyboard.JustDown(keyRIGHT) || Phaser.Input.Keyboard.JustDown(keyD)) {
         // Expert mode
         game.settings = {
           spaceshipSpeed: 4,
