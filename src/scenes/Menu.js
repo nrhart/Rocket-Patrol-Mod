@@ -48,25 +48,25 @@ class Menu extends Phaser.Scene {
   }
 
   update() {
-      if (Phaser.Input.Keyboard.JustDown(keyLEFT) || Phaser.Input.Keyboard.JustDown(keyA) ) {
+    if (Phaser.Input.Keyboard.JustDown(keyLEFT) || Phaser.Input.Keyboard.JustDown(keyA) ) {
         // Novice mode
         game.settings = {
           spaceshipSpeed: 3,
           halftimeSpeed: 4, 
-          gameTimer: 60000    
+          gameTimer: 60000
         }
         this.sound.play('sfx_select');
-        this.scene.start('playScene');    
+        this.scene.start('playerScene');    
       }
       if (Phaser.Input.Keyboard.JustDown(keyRIGHT) || Phaser.Input.Keyboard.JustDown(keyD)) {
         // Expert mode
         game.settings = {
           spaceshipSpeed: 4,
           halftimeSpeed: 5,
-          gameTimer: 45000    
+          gameTimer: 45000,  
         }
         this.sound.play('sfx_select');
-        this.scene.start('playScene');    
+        this.scene.start('playerScene');    
       }
     }
 }

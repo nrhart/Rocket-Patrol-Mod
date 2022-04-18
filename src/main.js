@@ -2,7 +2,7 @@ let config = {
     type: Phaser.CANVAS,
     width: 640,
     height: 480,
-    scene: [ Menu, Play ]
+    scene: [ Menu, Player, Play ]
 }
 
 let game = new Phaser.Game(config);
@@ -12,7 +12,7 @@ let borderUISize = game.config.height / 15;
 let borderPadding = borderUISize / 3;
 
 // reserve keyboard vars, P2 Keys
-let keyUP, keyR, keyLEFT, keyRIGHT;
+let keyUP, keyR, keyONE, keyTWO, keyLEFT, keyRIGHT;
 
 // P1 Keys
 let keyW, keyA, keyD;
