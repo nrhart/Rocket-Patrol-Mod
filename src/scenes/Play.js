@@ -8,10 +8,9 @@ class Play extends Phaser.Scene {
         this.load.image('rocket', './assets/pipe.png');
         this.birb = this.load.image('spaceship', './assets/flappybird.png');
         this.birb.flapX = true;
-        //this.load.spritesheet('duck', './assets/flyingduck.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
         this.load.image('starfield', './assets/pixelsky.png');
         // load spritesheet
-        this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
+        this.load.spritesheet('explosion', './assets/PopExplosion.png', {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 9});
     }
 
     create() {
@@ -46,16 +45,10 @@ class Play extends Phaser.Scene {
         // animation config
         this.anims.create({
             key: 'explode',
-            frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 9, first: 0}),
+            frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 10, first: 0}),
             frameRate: 30
         });
-        /*
-        this.anims.create({
-            key: 'flyingduck',
-            frames: this.anims.generateFrameNumbers('duck', { start: 0, end: 9, first: 0}),
-            frameRate: 30
-        });
-        */
+
         // initialize score
         this.p1Score = 0;
         this.p2Score = 0;
@@ -64,7 +57,7 @@ class Play extends Phaser.Scene {
         let scoreConfig = {
             fontFamily: 'Courier',
             fontSize: '28px',
-            backgroundColor: '#F3B141',
+            backgroundColor: '#f5f242',
             color: '#843605',
             align: 'right',
             padding: {
