@@ -1,3 +1,5 @@
+//Noah Hart, Flappybird: Revenge of the Pipes/Rocket-Patrol-Mod, 4/18/2022, 15 hours to complete
+
 let config = {
     type: Phaser.CANVAS,
     width: 640,
