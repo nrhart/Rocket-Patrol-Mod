@@ -9,6 +9,7 @@ class Play extends Phaser.Scene {
         this.birb = this.load.image('spaceship', './assets/flappybird.png');
         this.birb.flapX = true;
         this.load.image('starfield', './assets/pixelsky.png');
+        this.birb = this.load.image('header', './assets/bubbleheader.png');
         // load spritesheet
         this.load.spritesheet('explosion', './assets/PopExplosion.png', {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 9});
     }
@@ -17,7 +18,7 @@ class Play extends Phaser.Scene {
         // place tile sprite
         this.starfield = this.add.tileSprite(0, 10, 640, 480, 'starfield').setOrigin(0, 0);
         // green UI background
-        this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0xFFFFFF).setOrigin(0, 0);
+        this.add.tileSprite(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 'header').setOrigin(0, 0);
         // white borders
         this.add.rectangle(0, 0, game.config.width, borderUISize+10, 0x4287f5).setOrigin(0, 0);
         this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0x4287f5).setOrigin(0, 0);
