@@ -16,8 +16,8 @@ class Menu extends Phaser.Scene {
       this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
       // menu text configuration
       let menuConfig = {
-          fontFamily: 'Courier',
-          fontSize: '24px',
+          fontFamily: 'Monaco',
+          fontSize: '30px',
           backgroundColor: '#f5f242',
           color: '#843605',
           align: 'right',
@@ -31,6 +31,8 @@ class Menu extends Phaser.Scene {
 
       // show menu text
       this.add.text(game.config.width/2, game.config.height/4 - borderUISize - borderPadding, 'FLAPPYBIRD: REVENGE OF THE PIPES', menuConfig).setOrigin(0.5);
+      menuConfig.fontFamily = 'Courier';
+      menuConfig.fontSize = '24px';
       this.add.text(game.config.width/2, game.config.height/2, 'P1 uses A & D to move and (W) to fire', menuConfig).setOrigin(0.5);
       this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'P2 uses ←→ arrows to move and (↑) to fire', menuConfig).setOrigin(0.5);
       menuConfig.backgroundColor = '#7fad71';

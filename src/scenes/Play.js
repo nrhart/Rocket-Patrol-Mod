@@ -25,9 +25,9 @@ class Play extends Phaser.Scene {
         this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0x4287f5).setOrigin(0, 0);
 
         // add rocket (p1)
-        this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0);
+        this.p1Rocket = new Rocket(this, game.config.width/2 - 100, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0);
         if(game.player.select){
-            this.p2Rocket = new Rocket2(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0);
+            this.p2Rocket = new Rocket2(this, game.config.width/2 + 100, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0);
         }
 
         // add spaceships (x3)
@@ -190,7 +190,7 @@ class Play extends Phaser.Scene {
 
     checkCollision(rocket, ship) {
         // simple AABB checking
-        if (rocket.x < ship.x + ship.width && 
+        if (!ship.alpha == 0 && rocket.x < ship.x + ship.width && 
             rocket.x + rocket.width > ship.x && 
             rocket.y < ship.y + ship.height &&
             rocket.height + rocket.y > ship. y) {
@@ -235,4 +235,5 @@ class Play extends Phaser.Scene {
         
         this.sound.play('sfx_explosion')
       }
+      
 }
