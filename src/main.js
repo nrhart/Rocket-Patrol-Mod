@@ -22,6 +22,8 @@ let keyW, keyA, keyD;
 
 //Points Breakdown
 //Speed up effect after half time (5)
+//Background Music (5)
+//Fast moving Spaceship (20)
 //Display Game Timer (10)
 //Selectable Two Player Mode (30)
 //Theme, Sound, Art, UI Changes (60)

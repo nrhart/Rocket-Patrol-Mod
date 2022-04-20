@@ -54,6 +54,7 @@ class Menu extends Phaser.Scene {
         // Novice mode
         game.settings = {
           spaceshipSpeed: 3,
+          fastSpaceshipSpeed: 6,
           halftimeSpeed: 4, 
           gameTimer: 60000
         }
@@ -64,6 +65,7 @@ class Menu extends Phaser.Scene {
         // Expert mode
         game.settings = {
           spaceshipSpeed: 4,
+          fastSpaceshipSpeed: 7,
           halftimeSpeed: 5,
           gameTimer: 45000,  
         }
