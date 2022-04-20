@@ -5,40 +5,42 @@ class Play extends Phaser.Scene {
 
     preload() {
         // load images/tile sprites
-        this.load.image('rocket', './assets/pipe.png');
-        //this.birb = this.load.spritesheet('spaceship', './assets/flappybirdy.png', {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 3});
-        this.load.image('spaceship', './assets/flappybird.png');
-        this.load.image('fastspaceship', './assets/fastflappybird.png');
-        this.load.image('starfield', './assets/pixelsky.png');
-        this.load.image('header', './assets/bubbleheader.png');
+        this.load.image('pipe', './assets/pipe.png');
+        this.load.image('landscape', './assets/pixelsky.png');
+        this.load.image('bubbleheader', './assets/bubbleheader.png');
+        
         // load spritesheet
         this.load.spritesheet('explosion', './assets/PopExplosion.png', {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 9});
-        this.load.audio('music', './assets/MSM.mp3');
+        this.load.spritesheet('flappybird', './assets/flappybird.png', {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 2});
+        this.load.spritesheet('fastflappybird', './assets/fastflappybird.png', {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 2});
+
+        // load background audio
+        this.load.audio('sfx_backgroundmusic', './assets/MSM.mp3');
     }
 
     create() {
         // place tile sprite
-        this.starfield = this.add.tileSprite(0, 10, 640, 480, 'starfield').setOrigin(0, 0);
+        this.landscape = this.add.tileSprite(0, 10, 640, 480, 'landscape').setOrigin(0, 0);
         // green UI background
-        this.add.tileSprite(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 'header').setOrigin(0, 0);
+        this.add.tileSprite(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 'bubbleheader').setOrigin(0, 0);
         // white borders
         this.add.rectangle(0, 0, game.config.width, borderUISize+10, 0x4287f5).setOrigin(0, 0);
         this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0x4287f5).setOrigin(0, 0);
         this.add.rectangle(0, 0, borderUISize, game.config.height, 0x4287f5).setOrigin(0, 0);
         this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0x4287f5).setOrigin(0, 0);
 
-        // add rocket (p1)
-        this.p1Rocket = new Rocket(this, game.config.width/2 - 100, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0);
+        // add pipe (p1)
+        this.p1Pipe = new Pipe(this, game.config.width/2 - 100, game.config.height - borderUISize - borderPadding, 'pipe').setOrigin(0.5, 0);
         if(game.player.select){
-            this.p2Rocket = new Rocket2(this, game.config.width/2 + 100, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0);
+            this.p2Pipe = new Pipe2(this, game.config.width/2 + 100, game.config.height - borderUISize - borderPadding, 'pipe').setOrigin(0.5, 0);
         }
 
-        // add spaceships (x3)
-        this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship', 0, 30).setOrigin(0, 0);
-        this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'spaceship', 0, 20).setOrigin(0,0);
-        this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'spaceship', 0, 10).setOrigin(0,0);
-        this.ship04 = new FastSpaceship(this, game.config.width + borderUISize*6, borderUISize*3, 'fastspaceship', 0, 40).setOrigin(0,0);
-        this.ship04.flipX = true;
+        // add spacebirds (x3)
+        this.bird01 = new FlappyBird(this, game.config.width + borderUISize*6, borderUISize*4, 'flappybird', 0, 30).setOrigin(0, 0);
+        this.bird02 = new FlappyBird(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'flappybird', 0, 20).setOrigin(0,0);
+        this.bird03 = new FlappyBird(this, game.config.width, borderUISize*6 + borderPadding*4, 'flappybird', 0, 10).setOrigin(0,0);
+        this.bird04 = new FastFlappyBird(this, game.config.width + borderUISize*6, borderUISize*3, 'fastfalppybird', 0, 40).setOrigin(0,0);
+        this.bird04.flipX = true;
         
         // define keys
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -56,12 +58,24 @@ class Play extends Phaser.Scene {
             frameRate: 30
         });
 
-       /* this.anims.create({
+       this.anims.create({
             key: 'flap',
-            frames: this.anims.generateFrameNumbers('spaceship', { start: 0, end: 3, first: 0}),
-            frameRate: 30
+            frames: this.anims.generateFrameNumbers('flappybird', { start: 0, end: 2, first: 0}),
+            frameRate: 10,
+            repeat: -1
         });
-        */
+        this.anims.create({
+            key: 'fastflap',
+            frames: this.anims.generateFrameNumbers('fastflappybird', { start: 0, end: 2, first: 0}),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.bird01.anims.play('flap');
+        this.bird02.anims.play('flap');
+        this.bird03.anims.play('flap');
+        this.bird04.anims.play('fastflap');
+        
 
         // initialize score
         this.p1Score = 0;
@@ -131,7 +145,7 @@ class Play extends Phaser.Scene {
             });
         }, null, this);
 
-        this.sound.play('music');
+        this.sound.play('sfx_backgroundmusic');
     }
 
     updateTimer() {
@@ -155,108 +169,107 @@ class Play extends Phaser.Scene {
             this.scene.start("menuScene");
         }
 
-        this.starfield.tilePositionX -= 3;  // update tile sprite
+        this.landscape.tilePositionX -= 3;  // update tile sprite
 
         if (!this.gameOver) {
-            this.p1Rocket.update();             // update Rocket Sprite
+            this.p1Pipe.update();             // update Pipe Sprite
             if(game.player.select){
-                this.p2Rocket.update();
+                this.p2Pipe.update();
             }
-            this.ship01.update();               // update spaceships (x3)
-            this.ship02.update();
-            this.ship03.update();
-            this.ship04.update();
-            //birb.anims.play('flap');
+            this.bird01.update();               // update spacebirds (x3)
+            this.bird02.update();
+            this.bird03.update();
+            this.bird04.update();
         }
 
         if(this.halfTimer){
-            this.ship01.halftime();
-            this.ship02.halftime();
-            this.ship03.halftime();
+            this.bird01.halftime();
+            this.bird02.halftime();
+            this.bird03.halftime();
         }
 
         // check collisions P1
-        if (this.checkCollision(this.p1Rocket, this.ship04)) {
-            this.p1Rocket.reset();
-            this.shipExplodeP1(this.ship04);
+        if (this.checkCollision(this.p1Pipe, this.bird04)) {
+            this.p1Pipe.reset();
+            this.birdExplodeP1(this.bird04);
         }
-        if(this.checkCollision(this.p1Rocket, this.ship03)) {
-            this.p1Rocket.reset();
-            this.shipExplodeP1(this.ship03);
+        if(this.checkCollision(this.p1Pipe, this.bird03)) {
+            this.p1Pipe.reset();
+            this.birdExplodeP1(this.bird03);
         }
-        if (this.checkCollision(this.p1Rocket, this.ship02)) {
-            this.p1Rocket.reset();
-            this.shipExplodeP1(this.ship02);
+        if (this.checkCollision(this.p1Pipe, this.bird02)) {
+            this.p1Pipe.reset();
+            this.birdExplodeP1(this.bird02);
         }
-        if (this.checkCollision(this.p1Rocket, this.ship01)) {
-            this.p1Rocket.reset();
-            this.shipExplodeP1(this.ship01);
+        if (this.checkCollision(this.p1Pipe, this.bird01)) {
+            this.p1Pipe.reset();
+            this.birdExplodeP1(this.bird01);
         }
 
         // check collisions P2
         if(game.player.select){
-            if (this.checkCollision(this.p2Rocket, this.ship04)) {
-                this.p2Rocket.reset();
-                this.shipExplodeP1(this.ship04);
+            if (this.checkCollision(this.p2Pipe, this.bird04)) {
+                this.p2Pipe.reset();
+                this.birdExplodeP1(this.bird04);
             }
-            if(this.checkCollision(this.p2Rocket, this.ship03)) {
-                this.p2Rocket.reset();
-                this.shipExplodeP2(this.ship03);
+            if(this.checkCollision(this.p2Pipe, this.bird03)) {
+                this.p2Pipe.reset();
+                this.birdExplodeP2(this.bird03);
             }
-            if (this.checkCollision(this.p2Rocket, this.ship02)) {
-                this.p2Rocket.reset();
-                this.shipExplodeP2(this.ship02);
+            if (this.checkCollision(this.p2Pipe, this.bird02)) {
+                this.p2Pipe.reset();
+                this.birdExplodeP2(this.bird02);
             }
-            if (this.checkCollision(this.p2Rocket, this.ship01)) {
-                this.p2Rocket.reset();
-                this.shipExplodeP2(this.ship01);
+            if (this.checkCollision(this.p2Pipe, this.bird01)) {
+                this.p2Pipe.reset();
+                this.birdExplodeP2(this.bird01);
             }
         }
       }
 
-    checkCollision(rocket, ship) {
+    checkCollision(pipe, bird) {
         // simple AABB checking
-        if (!ship.alpha == 0 && rocket.x < ship.x + ship.width && 
-            rocket.x + rocket.width > ship.x && 
-            rocket.y < ship.y + ship.height &&
-            rocket.height + rocket.y > ship. y) {
+        if (!bird.alpha == 0 && pipe.x < bird.x + bird.width && 
+            pipe.x + pipe.width > bird.x && 
+            pipe.y < bird.y + bird.height &&
+            pipe.height + pipe.y > bird. y) {
                 return true;
         } else {
             return false;
         }
     }
 
-    shipExplodeP1(ship) {
-        // temporarily hide ship
-        ship.alpha = 0;
-        // create explosion sprite at ship's position
-        let boom = this.add.sprite(ship.x, ship.y, 'explosion').setOrigin(0, 0);
+    birdExplodeP1(bird) {
+        // temporarily hide bird
+        bird.alpha = 0;
+        // create explosion sprite at bird's position
+        let boom = this.add.sprite(bird.x, bird.y, 'explosion').setOrigin(0, 0);
         boom.anims.play('explode');             // play explode animation
         boom.on('animationcomplete', () => {    // callback after anim completes
-          ship.reset();                         // reset ship position
-          ship.alpha = 1;                       // make ship visible again
+          bird.reset();                         // reset bird position
+          bird.alpha = 1;                       // make bird visible again
           boom.destroy();                       // remove explosion sprite
         });
         // score add and repaint
-        this.p1Score += ship.points;
+        this.p1Score += bird.points;
         this.scoreLeft.text = this.p1Score;
         
         this.sound.play('sfx_explosion')
       }
 
-    shipExplodeP2(ship) {
-        // temporarily hide ship
-        ship.alpha = 0;
-        // create explosion sprite at ship's position
-        let boom = this.add.sprite(ship.x, ship.y, 'explosion').setOrigin(0, 0);
+    birdExplodeP2(bird) {
+        // temporarily hide bird
+        bird.alpha = 0;
+        // create explosion sprite at bird's position
+        let boom = this.add.sprite(bird.x, bird.y, 'explosion').setOrigin(0, 0);
         boom.anims.play('explode');             // play explode animation
         boom.on('animationcomplete', () => {    // callback after anim completes
-          ship.reset();
-          ship.alpha = 1;                       // make ship visible again
+          bird.reset();
+          bird.alpha = 1;                       // make bird visible again
           boom.destroy();                       // remove explosion sprite
         });
         // score add and repaint
-        this.p2Score += ship.points;
+        this.p2Score += bird.points;
         this.scoreRight.text = this.p2Score;
         
         this.sound.play('sfx_explosion')

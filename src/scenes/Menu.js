@@ -7,13 +7,13 @@ class Menu extends Phaser.Scene {
       // load audio
       this.load.audio('sfx_select', './assets/point.mp3');
       this.load.audio('sfx_explosion', './assets/hit.mp3');
-      this.load.audio('sfx_rocket', './assets/swoosh.mp3');
-      this.load.image('starfield', './assets/pixelsky.png');
+      this.load.audio('sfx_pipe', './assets/swoosh.mp3');
+      this.load.image('landscape', './assets/pixelsky.png');
     }
     
 
   create() {
-      this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
+      this.add.tileSprite(0, 0, 640, 480, 'landscape').setOrigin(0, 0);
       // menu text configuration
       let menuConfig = {
           fontFamily: 'Monaco',
@@ -53,8 +53,8 @@ class Menu extends Phaser.Scene {
     if (Phaser.Input.Keyboard.JustDown(keyLEFT) || Phaser.Input.Keyboard.JustDown(keyA) ) {
         // Novice mode
         game.settings = {
-          spaceshipSpeed: 3,
-          fastSpaceshipSpeed: 6,
+          birdSpeed: 3,
+          fastbirdSpeed: 6,
           halftimeSpeed: 4, 
           gameTimer: 60000
         }
@@ -64,8 +64,8 @@ class Menu extends Phaser.Scene {
       if (Phaser.Input.Keyboard.JustDown(keyRIGHT) || Phaser.Input.Keyboard.JustDown(keyD)) {
         // Expert mode
         game.settings = {
-          spaceshipSpeed: 4,
-          fastSpaceshipSpeed: 7,
+          birdSpeed: 4,
+          fastbirdSpeed: 7,
           halftimeSpeed: 5,
           gameTimer: 45000,  
         }

@@ -25,5 +25,8 @@ let keyW, keyA, keyD;
 //Background Music (5)
 //Fast moving Spaceship (20)
 //Display Game Timer (10)
+//Animated Spaceship Sprite(10)
 //Selectable Two Player Mode (30)
 //Theme, Sound, Art, UI Changes (60)
+
+//Total: 140/100
