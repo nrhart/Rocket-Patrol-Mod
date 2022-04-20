@@ -16,7 +16,7 @@ class Player extends Phaser.Scene {
         this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
         // menu text configuration
         let menuConfig = {
-            fontFamily: 'Courier',
+            fontFamily: 'Copperplate',
             fontSize: '22px',
             backgroundColor: '#f5f242',
             color: '#843605',
@@ -36,6 +36,7 @@ class Player extends Phaser.Scene {
         menuConfig.color = '#000';
         menuConfig.padding.top = 25;
         menuConfig.fontSize = '25.5px';
+        menuConfig.fontFamily = 'Courier';
         this.add.text(game.config.width/2, game.config.height/2 + borderUISize*5 + borderPadding*5, '                                          ', menuConfig).setOrigin(0.5);
 
    

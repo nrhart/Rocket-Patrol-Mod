@@ -31,14 +31,14 @@ class Menu extends Phaser.Scene {
 
       // show menu text
       this.add.text(game.config.width/2, game.config.height/4 - borderUISize - borderPadding, 'FLAPPYBIRD: REVENGE OF THE PIPES', menuConfig).setOrigin(0.5);
-      menuConfig.fontFamily = 'Courier';
+      menuConfig.fontFamily = 'Copperplate';
       menuConfig.fontSize = '24px';
       this.add.text(game.config.width/2, game.config.height/2, 'P1 uses A & D to move and (W) to fire', menuConfig).setOrigin(0.5);
       this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'P2 uses ←→ arrows to move and (↑) to fire', menuConfig).setOrigin(0.5);
       menuConfig.backgroundColor = '#7fad71';
       menuConfig.color = '#000';
       menuConfig.padding.top = 25;
-      menuConfig.fontSize = '25.5px';
+      menuConfig.fontSize = '29.25px';
       
       this.add.text(game.config.width/2, game.config.height/2 + borderUISize*5 + borderPadding*5, 'Press ← / A for Novice or → / D for Expert', menuConfig).setOrigin(0.5);
  
