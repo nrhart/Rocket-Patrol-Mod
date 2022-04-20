@@ -127,7 +127,7 @@ class Play extends Phaser.Scene {
                     this.add.text(game.config.width/2, game.config.height/2 + 128, 'Draw', scoreConfig).setOrigin(0.5);
                 }
             } else{
-                this.add.text(game.config.width/2, game.config.height/2 + 128, 'Score:' + this.p1Score, scoreConfig).setOrigin(0.5);
+                this.add.text(game.config.width/2, game.config.height/2 + 128, 'Score: ' + this.p1Score, scoreConfig).setOrigin(0.5);
             }
             this.gameOver = true;
         }, null, this);
